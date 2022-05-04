@@ -29,7 +29,7 @@ export default {
     commonjs({
       exclude: 'node_modules',
       ignoreGlobal: true,
-      transformMixedEsModules: true,
+      // transformMixedEsModules: true,
       // namedExports: {
       //   'dcldash': Object.keys(DCLDash),
       // }

@@ -1,8 +1,8 @@
 import { DCLConnectedEntity } from "./connectedEntity"
 import { IPosition } from "./interfaces"
-import { Dash_OnFirstMove } from "dcldash"
+// import { Dash_OnFirstMove } from "dcldash"
 import { DCLConnectCurvedScreen } from "./curvedScreen"
-import { makeid } from "zootools"
+// import { makeid } from "zootools"
 import { getImageURL } from '../utils/utils'
 import 'es6-shim'
 
@@ -59,9 +59,9 @@ export class VideoMaterial {
         this.mat.emissiveTexture = this.vt
         this.mat.emissiveIntensity = 1
         this.mat.emissiveColor = Color3.White()
-        Dash_OnFirstMove(() => {
-            this.vt!.play()
-        })
+        // Dash_OnFirstMove(() => {
+        //     this.vt!.play()
+        // })
     }
 
     public setSeek(seconds: number){

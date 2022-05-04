@@ -11,14 +11,14 @@ import { DCLConnectVenue } from "./Venue"
 import { DCLConnectGallery } from "./Gallery"
 import { DCLConnectExperience } from "./Experience"
 import { getLandBarrierData } from "../utils/getLandBarrierData"
-import { Dash_LandBarrier } from "dcldash"
+// import { Dash_LandBarrier } from "dcldash"
 
 export abstract class DCLConnectLand extends Entity {
     private initialized: boolean = false
     public attributes: Map<string, DCLConnectElement> = new Map()
     private entities: Map<string, Entity> = new Map()
     private settings: Map<string, DCLConnectElement> = new Map()
-    private landBarrier: Dash_LandBarrier | undefined
+    // private landBarrier: Dash_LandBarrier | undefined
     private privateEvent: boolean = true
     private barrierMessage: string = "accountrequired"
     private whitelist: Set<string> = new Set() // Set<string>
@@ -30,8 +30,8 @@ export abstract class DCLConnectLand extends Entity {
         executeTask(async () => {
             const { base, parcels, maxHeight } = await getLandBarrierData()
             log('HYDRATE::', 'Awaited parcel data')
-            this.landBarrier = new Dash_LandBarrier(new Vector3(0, 0, 16.00001))
-            this.landBarrier.setMessage(this.barrierMessage)
+            // this.landBarrier = new Dash_LandBarrier(new Vector3(0, 0, 16.00001))
+            // this.landBarrier.setMessage(this.barrierMessage)
         })
     }
 
@@ -165,17 +165,17 @@ export abstract class DCLConnectLand extends Entity {
     }
 
     private updateBarrier(){
-        if(!this.privateEvent){
-            this.landBarrier!.disable()
-        }else{
-            const onWhiteList = this.checkWhiteList()
-            if(onWhiteList){
-                this.landBarrier!.disable()
-            }else{
-                this.landBarrier!.enable()
-                this.landBarrier!.setMessage(this.barrierMessage)
-            }
-        }
+        // if(!this.privateEvent){
+        //     this.landBarrier!.disable()
+        // }else{
+        //     const onWhiteList = this.checkWhiteList()
+        //     if(onWhiteList){
+        //         this.landBarrier!.disable()
+        //     }else{
+        //         this.landBarrier!.enable()
+        //         this.landBarrier!.setMessage(this.barrierMessage)
+        //     }
+        // }
     }
 
     private checkWhiteList(): boolean {

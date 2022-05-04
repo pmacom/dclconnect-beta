@@ -1,4 +1,4 @@
-import { Dash_UV_Curved_Video } from "dcldash"
+// import { Dash_UV_Curved_Video } from "dcldash"
 
 const points = [
     new Vector3(1.8287944793701172,0.0,-7.059377193450928),
@@ -32,9 +32,9 @@ export class DCLConnectCurvedScreen extends Entity {
                 0,
             ))
             plane.setParent(this)
-            let uvs = Dash_UV_Curved_Video(points.length, index)
-            shape.uvs = uvs
-            this.planes.push(plane)
+            // let uvs = Dash_UV_Curved_Video(points.length, index)
+            // shape.uvs = uvs
+            // this.planes.push(plane)
         })
         engine.addEntity(this)
     }

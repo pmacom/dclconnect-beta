@@ -7,7 +7,7 @@ import { movePlayerTo, PositionType } from "@decentraland/RestrictedActions"
 import { DCLConnectHydrateMap, DCLConnectState } from './state';
 import { DCLConnectLand } from './content/Land';
 import { DCLConnectHydrateEntityType, DCLConnectHydrateSetting, IDCLConnectInitialPayload } from './interfaces';
-import { Dash_Wait } from 'dcldash';
+// import { Dash_Wait } from 'dcldash';
 
 export interface DCLConnectSettings {
     base?: string
@@ -237,7 +237,7 @@ export class DCLConnectInstance {
         if(timeout > this.maxDelay) timeout = this.maxDelay
         let wait = timeout / 1000;
         log(`Waiting ${wait} seconds for next attempt`)
-        Dash_Wait(()=>{ this.connectWS(); },wait);
+        // Dash_Wait(()=>{ this.connectWS(); },wait);
     }
 
     private updateConnectionDebugger(room: Room) {

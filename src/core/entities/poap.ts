@@ -1,4 +1,3 @@
-import { POAPBooth, AlertSystem } from 'zootools';
 import { DCLConnectedEntity } from "./connectedEntity";
 import { IPosition } from "./interfaces";
 import { DCLConnect } from '../connect';
@@ -23,7 +22,6 @@ export interface IPOAPBooth {
 let booth_number = 0;
 
 export class DCLConnectPOAP extends DCLConnectedEntity {
-    booth: POAPBooth | undefined
     constructor(settings: any){
         super(settings)
         booth_number++;
