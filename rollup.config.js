@@ -1,6 +1,7 @@
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import typescript from '@rollup/plugin-typescript';
+import externals from 'rollup-plugin-node-externals'
 import { terser } from 'rollup-plugin-terser';
 // import DCLDash from 'dcldash'
 
@@ -21,6 +22,7 @@ export default {
     },
   ],
   plugins: [
+    externals(),
     resolve({
       preferBuiltins: true,
       browser: true,
