@@ -1,6 +1,6 @@
 {
   "name": "dclconnect-beta",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "DCLconnect beta library",
   "main": "./dist/index.js",
   "scripts": {
@@ -35,18 +35,17 @@
     "colyseus.js": "^0.14.12",
     "decentraland-ecs": "^6.10.0",
     "rollup": "^2.70.1",
-    "rollup-plugin-amd": "^4.0.0",
-    "rollup-plugin-terser": "^7.0.2"
-  },
-  "dependencies": {
-    "@types/es6-shim": "^0.31.42",
-    "colyseus.js": "^0.14.12",
     "es6-shim": "^0.35.6",
+    "@types/es6-shim": "^0.31.42",
+    "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-typescript2": "^0.31.2"
   },
+  "dependencies": {
+    "colyseus.js": "^0.14.12"
+  },
   "peerDependencies": {
-    "dcldash": "^0.0.28",
+    "dcldash": "^0.0.29",
     "zootools": "0.0.52-20220504170041.commit-fc7449a"
   },
   "types": "dist/index.d.ts",
