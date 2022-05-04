@@ -4,8 +4,7 @@ import { Dash_OnFirstMove } from "dcldash"
 import { DCLConnectCurvedScreen } from "./curvedScreen"
 import { makeid } from "zootools"
 import { getImageURL } from '../utils/utils'
-
-declare const Map: any
+import 'es6-shim'
 
 export interface IScreen {
     enabled: boolean
@@ -82,53 +81,13 @@ export class VideoMaterial {
     }
 }
 
-export const videoMaterialMap: typeof Map = new Map()
-// Map<string, { entities: Entity[], vm: VideoMaterial }>
-
-
-export function createOrUpdateVideoMaterial({ entity, url }:{
-    entity: Entity;
-    url: string;
-}){ 
-    
-    let masterVm: VideoMaterial | undefined;
-    let reuseVm: VideoMaterial | undefined;
-
-    for(const [urlKey, { entities, vm }] of videoMaterialMap){
-        const hasEntity = entities.indexOf(entity) > -1;
-        const isSolo = entities.length === 1;
-        const urlChanged = urlKey !== url;
-        if(hasEntity && isSolo && urlChanged){ 
-            reuseVm = vm;
-        };
-    }
-
-    if(!videoMaterialMap.has(url)){
-        masterVm = reuseVm || new VideoMaterial(undefined, makeid(5));
-        videoMaterialMap.set(url, { vm: masterVm, entities: [] });
-        log(`DCLC createOrGetMaterial created url ${url}`, masterVm.vt?.videoClipId)
-    }else{
-        log(`DCLC createOrGetMaterial found url ${url}`)
-    }
-    const item = videoMaterialMap.get(url)!
-
-    for(const [urlKey, { entities, vm }] of videoMaterialMap){
-        const entityIdx = entities.indexOf(entity);
-        if(entityIdx > -1){ 
-            entities.splice(entityIdx, 1)
-            if(entities.length === 0){
-                log("DCLC detected a rouge VideoMaterial that should be killed", vm)
-                vm!.vt!.playing = false;
-                vm.vt!.reset();
-                videoMaterialMap.delete(urlKey);
-            }
-        };
-        if(url === urlKey) entities.push(entity);
-    }
-    masterVm?.setURL(url);
-    if(masterVm?.vt?.playing === false) masterVm.setPlaying(true);
-    return item.vm
+interface VideoMaterialSettings {
+    entities: Set<Entity>,
+    vm: VideoMaterial
 }
+
+export const videoMaterialMap: Map<string, VideoMaterialSettings> = new Map()
+
 
 
 export class SimpleVideo extends Entity {
@@ -165,56 +124,9 @@ export class DCLConnectScreen extends DCLConnectedEntity {
 
         if(position) this.setPosition(position)
         if(enabled) this.setEnabled(enabled)
-        
-        this.vm = createOrUpdateVideoMaterial({
-            entity: this,
-            url
-        })
-        this.vm?.setLoop(loop as boolean);
-        this.vm?.setVolume(volume as number /100);
-        // this.vm.setPlaying(true);
-        switch(type){
-            case "planeScreen":
-                this.screen = new SimpleVideo()
-                this.screen.setParent(this)
-                this.screen.addComponent(new OnPointerDown(() => {
-                    this.vm!.setPlaying(this.vm?.vt?.playing! || false)
-                }))
-                this.setScreenTexture()
-            break;
-            case "curvedScreen":
-                this.curved = new DCLConnectCurvedScreen()
-                this.curved.setParent(this)
-                this.curved.addComponent(new OnPointerDown(() => {
-                    this.vm!.setPlaying(this.vm?.vt?.playing! || false)
-                }));
-                this.vm?.addEntity(this.curved.planes)
-            break;
-        }
     }
 
     setScreenTexture(){
-        const { placeholderImage, showPlaceholder } = this.settings
-        log({ placeholderImage, showPlaceholder })
-        if(placeholderImage && showPlaceholder) {
-            if(!this.pm) this.pm = new Material()
-            const placeholder = getImageURL(placeholderImage)
-            this.pm.albedoTexture = new Texture(placeholder)
-            this.pm.emissiveTexture = new Texture(placeholder)
-            this.pm.emissiveColor = Color3.White()
-            this.screen!.addComponentOrReplace(this.pm)
-            this.screen!.shape.uvs = [ 0,0, 1,0, 1,1, 0,1, 1,0, 0,0, 0,1, 1,1 ]
-        }else{
-            this.vm = createOrUpdateVideoMaterial({ 
-                entity: this, 
-                url: this.settings.url as string
-            })
-            // TODO: Replace with updated dcldash function 0.0.21 (when released)
-            let uv = [ 0,1, 1,1, 1,0, 0,0, 1,1, 0,1, 0,0, 1,0 ]
-            this.screen!.shape.uvs =  uv // [...uv, ...uv]
-            //this.screen!.shape.uvs = Dash_UV_Video()
-            this.vm!.addEntity(this.screen!)
-        }
     }
 
     onUpdate(setting: string, value: any){

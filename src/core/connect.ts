@@ -1,8 +1,3 @@
-///<reference lib="es2015.symbol" />
-///<reference lib="es2015.symbol.wellknown" />
-///<reference lib="es2015.collection" />
-///<reference lib="es2015.iterable" />
-
 import { Client, Room } from 'colyseus.js';
 import { getCurrentRealm, isPreviewMode, Realm } from '@decentraland/EnvironmentAPI';
 import { getUserData, UserData } from '@decentraland/Identity';
@@ -42,17 +37,6 @@ export class DCLConnectInstance {
     public isIdle: boolean = false
     public inScene: boolean = false
     public isSceneLoaded: boolean = false
-    
-    private onEnableColliders: (() => void) | undefined;
-    private onDisableColliders: (() => void) | undefined;
-
-    public setColliderCallbacks(
-        onEnableColliders: () => void,
-        onDisableColliders: () => void,
-    ): void {
-        this.onEnableColliders = onEnableColliders;
-        this.onDisableColliders = onDisableColliders;
-    }
 
     private isCurrentUser(userId: string): boolean { 
         return this.userData?.userId.toLowerCase() === userId.toLowerCase(); 

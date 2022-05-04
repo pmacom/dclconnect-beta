@@ -6,7 +6,7 @@
     "dist"
   ],
   "compilerOptions": {
-    "target": "es6",
+    "target": "ES5",
     "module": "esnext",
     "strict": true,
     "removeComments": true,

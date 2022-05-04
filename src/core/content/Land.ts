@@ -1,13 +1,9 @@
-///<reference lib="es2015.symbol" />
-///<reference lib="es2015.symbol.wellknown" />
-///<reference lib="es2015.collection" />
-///<reference lib="es2016.iterable" />
-
+import 'es6-shim'
 import { DCLConnect } from "../connect"
 import { DCLConnectState } from "../state"
 import { DCLConnectElement } from "../element"
 import { HydrateTypes, HydrateAction, HydrateElement, DCLConnectHydrateEntityType, LandBarrierUserList } from "../interfaces"
-import { DCLConnectScreen } from "../entities/screen"
+// import { DCLConnectScreen } from "../entities/screen"
 import { DCLConnectPictureFrame } from "../entities/pictureFrame"
 import { DCLConnectPOAP } from "../entities/poap"
 import { DCLConnectedEntity } from "../entities/connectedEntity"
@@ -17,19 +13,16 @@ import { DCLConnectExperience } from "./Experience"
 import { getLandBarrierData } from "../utils/getLandBarrierData"
 import { Dash_LandBarrier } from "dcldash"
 
-declare const Map: any
-declare const Set: any
-
 export abstract class DCLConnectLand extends Entity {
     private initialized: boolean = false
-    public attributes: typeof Map = new Map() // Map<string, DCLConnectElement>
-    private entities: typeof Map = new Map() // Map<string, Entity>
-    private settings: typeof Map = new Map() // Map<string, DCLConnectElement>
+    public attributes: Map<string, DCLConnectElement> = new Map()
+    private entities: Map<string, Entity> = new Map()
+    private settings: Map<string, DCLConnectElement> = new Map()
     private landBarrier: Dash_LandBarrier | undefined
     private privateEvent: boolean = true
     private barrierMessage: string = "accountrequired"
-    private whitelist: typeof Set = new Set() // Set<string>
-    private blacklist: typeof Set = new Set() // Set<string>
+    private whitelist: Set<string> = new Set() // Set<string>
+    private blacklist: Set<string> = new Set() // Set<string>
 
     constructor(){
         super()
@@ -37,7 +30,7 @@ export abstract class DCLConnectLand extends Entity {
         executeTask(async () => {
             const { base, parcels, maxHeight } = await getLandBarrierData()
             log('HYDRATE::', 'Awaited parcel data')
-            this.landBarrier = new Dash_LandBarrier(base, parcels, new Vector3(0, 0, 16.00001))
+            this.landBarrier = new Dash_LandBarrier(new Vector3(0, 0, 16.00001))
             this.landBarrier.setMessage(this.barrierMessage)
         })
     }
@@ -135,7 +128,7 @@ export abstract class DCLConnectLand extends Entity {
                     break;
                 case 'curvedScreen':
                 case 'planeScreen':
-                    this.entities.set(entityName, new DCLConnectScreen(entitySettings))
+                    // this.entities.set(entityName, new DCLConnectScreen(entitySettings))
                     break;
             }
             log('DCLC Adding an entity', entityName, entitySettings)

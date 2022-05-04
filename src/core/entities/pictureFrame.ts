@@ -18,8 +18,6 @@ export interface IPictureFrame {
     position: IPosition
 }
 
-const defaultImageUrl = "https://hazelcdn.azureedge.net/strapi-uploads/assets%2Fey%20bg.png";
-
 export class DCLConnectPictureFrame extends DCLConnectedEntity {
     private poster: Dash_SimplePoster = new Dash_SimplePoster()
 
@@ -46,7 +44,7 @@ export class DCLConnectPictureFrame extends DCLConnectedEntity {
         this.poster.setImageUrl(url);
     }
     getImageUrl(image: IImageFormats | string | null | undefined): string {
-        if(!image) return defaultImageUrl;
+        if(!image) return '';
         if(typeof image === "string") return image;
         const { large, medium, small, thumbnail } = image;
         const format = ( large    ? large 

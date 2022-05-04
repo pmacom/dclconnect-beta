@@ -28,20 +28,26 @@
     "dist"
   ],
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^21.0.2",
+    "@rollup/plugin-commonjs": "^21.1.0",
     "@rollup/plugin-node-resolve": "^13.1.3",
     "@rollup/plugin-typescript": "^8.3.1",
+    "amd-loader": "^0.0.8",
     "colyseus.js": "^0.14.12",
     "decentraland-ecs": "^6.10.0",
     "rollup": "^2.70.1",
+    "rollup-plugin-amd": "^4.0.0",
     "rollup-plugin-terser": "^7.0.2"
   },
   "dependencies": {
+    "@types/es6-shim": "^0.31.42",
     "colyseus.js": "^0.14.12",
-    "dcldash": "^0.0.25",
+    "es6-shim": "^0.35.6",
     "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup-plugin-typescript2": "^0.31.2",
-    "zootools": "^0.0.50"
+    "rollup-plugin-typescript2": "^0.31.2"
+  },
+  "peerDependencies": {
+    "dcldash": "^0.0.28",
+    "zootools": "0.0.52-20220504170041.commit-fc7449a"
   },
   "types": "dist/index.d.ts",
   "engines": {
