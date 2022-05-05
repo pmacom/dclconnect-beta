@@ -17,7 +17,10 @@
     "paths": {
       "colyseus.js": [
         "node_modules/colyseus.js/dist/colyseus.d.ts",
-      ]
+      ],
+      "dcldash": [
+        "node_modules/dcldash/dist/index.d.ts"
+      ],
     }
   },
   "extends": "./node_modules/decentraland-ecs/types/tsconfig.json"

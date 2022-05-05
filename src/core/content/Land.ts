@@ -1,9 +1,8 @@
-import 'es6-shim'
 import { DCLConnect } from "../connect"
 import { DCLConnectState } from "../state"
 import { DCLConnectElement } from "../element"
 import { HydrateTypes, HydrateAction, HydrateElement, DCLConnectHydrateEntityType, LandBarrierUserList } from "../interfaces"
-// import { DCLConnectScreen } from "../entities/screen"
+import { DCLConnectScreen } from "../entities/screen"
 import { DCLConnectPictureFrame } from "../entities/pictureFrame"
 import { DCLConnectPOAP } from "../entities/poap"
 import { DCLConnectedEntity } from "../entities/connectedEntity"
@@ -11,18 +10,25 @@ import { DCLConnectVenue } from "./Venue"
 import { DCLConnectGallery } from "./Gallery"
 import { DCLConnectExperience } from "./Experience"
 import { getLandBarrierData } from "../utils/getLandBarrierData"
-// import { Dash_LandBarrier } from "dcldash"
+
+// @ts-ignore
+import _Map from 'es6-map'
+
+// @ts-ignore
+import _Set from 'es6-set' 
+
+import { Dash_LandBarrier } from "dcldash"
 
 export abstract class DCLConnectLand extends Entity {
     private initialized: boolean = false
-    public attributes: Map<string, DCLConnectElement> = new Map()
-    private entities: Map<string, Entity> = new Map()
-    private settings: Map<string, DCLConnectElement> = new Map()
-    // private landBarrier: Dash_LandBarrier | undefined
+    public attributes: _Map<string, DCLConnectElement> = new _Map()
+    private entities: _Map<string, Entity> = new _Map()
+    private settings: _Map<string, DCLConnectElement> = new _Map()
+    private landBarrier: Dash_LandBarrier | undefined
     private privateEvent: boolean = true
     private barrierMessage: string = "accountrequired"
-    private whitelist: Set<string> = new Set() // Set<string>
-    private blacklist: Set<string> = new Set() // Set<string>
+    private whitelist: _Set<string> = new _Set() // Set<string>
+    private blacklist: _Set<string> = new _Set() // Set<string>
 
     constructor(){
         super()
@@ -30,8 +36,8 @@ export abstract class DCLConnectLand extends Entity {
         executeTask(async () => {
             const { base, parcels, maxHeight } = await getLandBarrierData()
             log('HYDRATE::', 'Awaited parcel data')
-            // this.landBarrier = new Dash_LandBarrier(new Vector3(0, 0, 16.00001))
-            // this.landBarrier.setMessage(this.barrierMessage)
+            this.landBarrier = new Dash_LandBarrier(new Vector3(0, 0, 16.00001))
+            this.landBarrier.setMessage(this.barrierMessage)
         })
     }
 
@@ -128,7 +134,7 @@ export abstract class DCLConnectLand extends Entity {
                     break;
                 case 'curvedScreen':
                 case 'planeScreen':
-                    // this.entities.set(entityName, new DCLConnectScreen(entitySettings))
+                    this.entities.set(entityName, new DCLConnectScreen(entitySettings))
                     break;
             }
             log('DCLC Adding an entity', entityName, entitySettings)
@@ -165,17 +171,17 @@ export abstract class DCLConnectLand extends Entity {
     }
 
     private updateBarrier(){
-        // if(!this.privateEvent){
-        //     this.landBarrier!.disable()
-        // }else{
-        //     const onWhiteList = this.checkWhiteList()
-        //     if(onWhiteList){
-        //         this.landBarrier!.disable()
-        //     }else{
-        //         this.landBarrier!.enable()
-        //         this.landBarrier!.setMessage(this.barrierMessage)
-        //     }
-        // }
+        if(!this.privateEvent){
+            this.landBarrier!.disable()
+        }else{
+            const onWhiteList = this.checkWhiteList()
+            if(onWhiteList){
+                this.landBarrier!.disable()
+            }else{
+                this.landBarrier!.enable()
+                this.landBarrier!.setMessage(this.barrierMessage)
+            }
+        }
     }
 
     private checkWhiteList(): boolean {
@@ -252,7 +258,5 @@ export abstract class DCLConnectLand extends Entity {
                     break
             }
         })
-        // DCLConnectHydrateMap.set()
-        // DCLConnect.apiURL
     }
 }

@@ -41,8 +41,10 @@
     "rollup-plugin-typescript2": "^0.31.2"
   },
   "dependencies": {
-    "es6-shim": "^0.35.6",
-    "colyseus.js": "^0.14.13"
+    "colyseus.js": "^0.14.13",
+    "dcldash": "^0.0.31",
+    "es6-map": "^0.1.5",
+    "es6-set": "^0.1.5"
   },
   "types": "dist/index.d.ts",
   "engines": {

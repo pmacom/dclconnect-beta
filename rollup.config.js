@@ -22,9 +22,11 @@ export default {
     },
   ],
   plugins: [
-    externals(),
+    externals({
+      exclude: ['es6-map', 'es6-set']
+    }),
     resolve({
-      preferBuiltins: true,
+      preferBuiltins: false,
       browser: true,
     }),
     typescript({ tsconfig: './tsconfig.json' }),
