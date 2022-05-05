@@ -42,9 +42,7 @@
   },
   "dependencies": {
     "colyseus.js": "^0.14.13",
-    "dcldash": "^0.0.31",
-    "es6-map": "^0.1.5",
-    "es6-set": "^0.1.5"
+    "dcldash": "^0.0.31"
   },
   "types": "dist/index.d.ts",
   "engines": {

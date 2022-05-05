@@ -11,24 +11,26 @@ import { DCLConnectGallery } from "./Gallery"
 import { DCLConnectExperience } from "./Experience"
 import { getLandBarrierData } from "../utils/getLandBarrierData"
 
-// @ts-ignore
-import _Map from 'es6-map'
-
-// @ts-ignore
-import _Set from 'es6-set' 
+declare const Map: any
+declare const Set: any
 
 import { Dash_LandBarrier } from "dcldash"
 
 export abstract class DCLConnectLand extends Entity {
     private initialized: boolean = false
-    public attributes: _Map<string, DCLConnectElement> = new _Map()
-    private entities: _Map<string, Entity> = new _Map()
-    private settings: _Map<string, DCLConnectElement> = new _Map()
+    public attributes: typeof Map = new Map()
+    private entities: typeof Map = new Map()
+    private settings: typeof Map = new Map()
+    // public attributes: Map<string, DCLConnectElement> = new Map()
+    // private entities: Map<string, Entity> = new Map()
+    // private settings: Map<string, DCLConnectElement> = new Map()
     private landBarrier: Dash_LandBarrier | undefined
     private privateEvent: boolean = true
     private barrierMessage: string = "accountrequired"
-    private whitelist: _Set<string> = new _Set() // Set<string>
-    private blacklist: _Set<string> = new _Set() // Set<string>
+    private whitelist: typeof Set = new Set()
+    private blacklist: typeof Set = new Set()
+    // private whitelist: _Set<string> = new _Set()
+    // private blacklist: _Set<string> = new _Set()
 
     constructor(){
         super()

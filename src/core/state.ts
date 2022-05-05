@@ -1,15 +1,14 @@
 import { DCLConnectHydrateSetting, IDCLConnectState } from "./interfaces"
-// @ts-ignore
-import _Map from 'es6-map'
-// @ts-ignore
-import _Set from 'es6-set' 
+
+declare const Map: any
 
 export const DCLConnectState: IDCLConnectState = {
     landEntity: null,
     landUUID: null,
 }
 
-export const DCLConnectHydrateMap: _Map<string, DCLConnectHydrateSetting> = new _Map()
+export const DCLConnectHydrateMap: typeof Map = new Map()
+// export const DCLConnectHydrateMap: Map<string, DCLConnectHydrateSetting> = new Map()
 
 
 

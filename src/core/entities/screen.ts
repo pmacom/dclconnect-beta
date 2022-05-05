@@ -4,10 +4,9 @@ import { IPosition } from "./interfaces"
 import { DCLConnectCurvedScreen } from "./curvedScreen"
 // import { makeid } from "zootools"
 import { getImageURL } from '../utils/utils'
-// @ts-ignore
-import _Map from 'es6-map'
-// @ts-ignore
-import _Set from 'es6-set' 
+
+declare const Map: any
+declare const Set: any
 
 export interface IScreen {
     enabled: boolean
@@ -85,11 +84,17 @@ export class VideoMaterial {
 }
 
 interface VideoMaterialSettings {
-    entities: _Set<Entity>,
+    entities: typeof Set,
     vm: VideoMaterial
 }
 
-export const videoMaterialMap: _Map<string, VideoMaterialSettings> = new _Map()
+// interface VideoMaterialSettings {
+//     entities: Set<Entity>,
+//     vm: VideoMaterial
+// }
+
+export const videoMaterialMap: typeof Map = new Map()
+// export const videoMaterialMap: Map<string, VideoMaterialSettings> = new Map()
 
 
 
