@@ -1,6 +1,5 @@
 import { DCLConnectedEntity } from "./connectedEntity";
 import { IPosition } from "./interfaces";
-import { DCLConnect } from '../connect';
 
 // const alertSystem = new AlertSystem()
 

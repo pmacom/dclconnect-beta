@@ -34,18 +34,19 @@ export abstract class DCLConnectLand extends Entity {
 
     constructor(){
         super()
-        this.setLandEntity()
-        executeTask(async () => {
-            const { base, parcels, maxHeight } = await getLandBarrierData()
-            log('HYDRATE::', 'Awaited parcel data')
-            this.landBarrier = new Dash_LandBarrier(new Vector3(0, 0, 16.00001))
-            this.landBarrier.setMessage(this.barrierMessage)
-        })
+        // this.setLandEntity()
+        // executeTask(async () => {
+        //     const { base, parcels, maxHeight } = await getLandBarrierData()
+        //     log('HYDRATE::', 'Awaited parcel data')
+        //     this.landBarrier = new Dash_LandBarrier(new Vector3(0, 0, 16.00001))
+        //     this.landBarrier.setMessage(this.barrierMessage)
+        // })
     }
 
     private setLandEntity(){
         if(!DCLConnectState.landEntity){
             DCLConnectState.landEntity = this
+            log('Setting the land entity', this)
         }else{ this.warnLandEntity()}
     }
 
@@ -69,6 +70,7 @@ export abstract class DCLConnectLand extends Entity {
         log('DCLC Fetching initial Land data (signed fetch)', url)
 
         executeTask(async () => {
+            log('FETCHING DATA FROM', url)
             try {
                 let response = await fetch(url)
                 let data = await response.json()
@@ -187,11 +189,13 @@ export abstract class DCLConnectLand extends Entity {
     }
 
     private checkWhiteList(): boolean {
-        return this.whitelist.has(DCLConnect.userData?.publicKey!)
+        return true
+        //return this.whitelist.has(DCLConnect.userData?.publicKey!)
     }
 
     private checkBlackList(): boolean {
-        return this.blacklist.has(DCLConnect.userData?.publicKey!)
+        return false
+        //return this.blacklist.has(DCLConnect.userData?.publicKey!)
     }
 
     hydrate(payload: any){

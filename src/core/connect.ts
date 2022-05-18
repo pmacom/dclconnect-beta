@@ -174,11 +174,13 @@ export class DCLConnectInstance {
         try {
             this.attempts++;
             const options = this.getSessionData()
+            log("Connecting to", this.urls.wsURL)
             this.client = new Client(this.urls.wsURL);
             this.room = await this.client?.joinOrCreate('dclconnect', options);
             if (this.previewMode) this.updateConnectionDebugger(this.room); 
             this.room?.onMessage('update', (update: IDCLConnectInitialPayload ) => {
                 const { type, updates, uuid } = update
+                log('GOT AN UPDATE', updates)
                 if(DCLConnectHydrateMap.has(uuid)){
                     const hydrateSetting = DCLConnectHydrateMap.get(uuid)
                     const { type, entity } = hydrateSetting as DCLConnectHydrateSetting
